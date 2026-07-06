@@ -44,7 +44,7 @@ class ProductFactory(factory.Factory):
             'Chevy',
             'Hammer',
             'Wrench'
-         ]
+        ]
     )
     price = FuzzyDecimal(0.5, 2000.0, 2)
     available = FuzzyChoice(
@@ -59,5 +59,5 @@ class ProductFactory(factory.Factory):
             Category.HOUSEWARES,
             Category.AUTOMOTIVE,
             Category.TOOLS
-         ]
+        ]
     )
