@@ -199,3 +199,11 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found.count(), count)
         for product in found:
             self.assertEqual(product.category, category)
+
+    def test_deserialization_validates_availability_type(self):
+        """It should not deserialize if availability is not boolean"""
+        product_dict = ProductFactory.serialize()
+        product_dict.availability = "string"
+        product = ProductFactory()
+        with self.assertRaises(DataValidationError):
+            product.deserialize(product_dict)
