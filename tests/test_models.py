@@ -211,7 +211,7 @@ class TestProductModel(unittest.TestCase):
 
     def test_find_by_price(self):
         """It should Return all Products with the given price"""
-        prices = [ 42, 100 ]
+        prices = [42, 100]
         for price in prices:
             product = ProductFactory()
             product.price = price
