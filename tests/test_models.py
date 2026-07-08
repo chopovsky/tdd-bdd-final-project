@@ -221,7 +221,7 @@ class TestProductModel(unittest.TestCase):
             self.assertEqual(product.price, prices[0])
 
     def test_search_by_stringy_prices(self):
-        """It should Return all Products with the given price"""
+        """It should handle stringy price values upon search"""
         price = 42
         product = ProductFactory()
         product.price = price
@@ -244,5 +244,13 @@ class TestProductModel(unittest.TestCase):
         for field in required_fields:
             product_dict = ProductFactory().serialize()
             del product_dict[field]
+            with self.assertRaises(DataValidationError):
+                ProductFactory().deserialize(product_dict)
+
+    def test_wrong_fields_upon_deserialization(self):
+        """It should throw if wrong fields are present"""
+        for field in required_fields:
+            product_dict = ProductFactory().serialize()
+            product_dict['wrong'] = 42
             with self.assertRaises(DataValidationError):
                 ProductFactory().deserialize(product_dict)
