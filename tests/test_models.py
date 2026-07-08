@@ -247,10 +247,10 @@ class TestProductModel(unittest.TestCase):
             with self.assertRaises(DataValidationError):
                 ProductFactory().deserialize(product_dict)
 
-    def test_wrong_fields_upon_deserialization(self):
+    def test_deserialize_bad_category(self):
         """It should throw if wrong fields are present"""
         for field in required_fields:
             product_dict = ProductFactory().serialize()
-            product_dict['wrong'] = 42
+            product_dict['category'] = 'not_a_category'
             with self.assertRaises(DataValidationError):
                 ProductFactory().deserialize(product_dict)
