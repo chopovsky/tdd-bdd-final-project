@@ -232,10 +232,17 @@ class TestProductModel(unittest.TestCase):
         for product in found:
             self.assertEqual(product.price, price)
 
-    def test_deserialization_validates_availability_type(self):
-        """It should deserialize only if availability is boolean    """
-        product_dict = ProductFactory().serialize()
-        product_dict['available'] = "string"
-        product = ProductFactory()
-        with self.assertRaises(DataValidationError):
-            product.deserialize(product_dict)
+    def test_missing_fields_upon_deserialization(self):
+        """It should throw if a required field is absent"""
+        required_fields = [
+                'name'
+                'description'
+                'price'
+                'available'
+                'category'
+                ]
+        for field in required_fields:
+            product_dict = ProductFactory().serialize()
+            del product_dict[field]
+            with self.assertRaises(DataValidationError):
+                product.deserialize(product_dict)
