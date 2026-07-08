@@ -235,14 +235,14 @@ class TestProductModel(unittest.TestCase):
     def test_missing_fields_upon_deserialization(self):
         """It should throw if a required field is absent"""
         required_fields = [
-                'name'
-                'description'
-                'price'
-                'available'
-                'category'
+                'name',
+                'description',
+                'price',
+                'available',
+                'category',
                 ]
         for field in required_fields:
             product_dict = ProductFactory().serialize()
             del product_dict[field]
             with self.assertRaises(DataValidationError):
-                product.deserialize(product_dict)
+                ProductFactory().deserialize(product_dict)
