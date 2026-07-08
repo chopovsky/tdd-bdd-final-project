@@ -249,8 +249,7 @@ class TestProductModel(unittest.TestCase):
 
     def test_deserialize_bad_category(self):
         """It should throw if wrong fields are present"""
-        for field in required_fields:
-            product_dict = ProductFactory().serialize()
-            product_dict['category'] = 'not_a_category'
-            with self.assertRaises(DataValidationError):
-                ProductFactory().deserialize(product_dict)
+        product_dict = ProductFactory().serialize()
+        product_dict['category'] = 'not_a_category'
+        with self.assertRaises(DataValidationError):
+            ProductFactory().deserialize(product_dict)
