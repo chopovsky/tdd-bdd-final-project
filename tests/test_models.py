@@ -220,3 +220,15 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found.count(), 1)
         for product in found:
             self.assertEqual(product.price, prices[0])
+
+    def test_search_by_stringy_prices(self):
+        """It should Return all Products with the given price"""
+        price = 42
+        product = ProductFactory()
+        product.price = price
+        product.create()
+
+        found = Product.find_by_price(f' " {price} " ')
+        self.assertEqual(found.count(), 1)
+        for product in found:
+            self.assertEqual(product.price, price)
